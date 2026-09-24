@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: csv-fixtures-parser
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:csv-fixtures-parser}
+      auto-offset-reset: ${KAFKA_AUTO_OFFSET_RESET:earliest}
+      key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    producer:
+      key-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    properties:
+      schema.registry.url: ${KAFKA_SCHEMA_REGISTRY_URL}
+      specific.avro.reader: true
+app:
+  kafka:
+    topics:
+      file-ready: ${KAFKA_FILE_READY_TOPIC:file.ready.fixtures}
+      parsed-fixtures: ${KAFKA_PARSED_FIXTURES_TOPIC:fixtures.parsed}
