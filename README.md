@@ -1,4 +1,4 @@
-![version](https://img.shields.io/badge/version-2.0.6-blue)
+![version](https://img.shields.io/badge/version-2.0.7-blue)
 # csv-fixtures-parser
 
 ```text
@@ -27,3 +27,14 @@ Configuración:
 ```text
 CSV_ALLOWED_ROOT=/data/csv
 ```
+
+
+## Contratos Avro compartidos
+
+`FileEventKey`, `FileEventValue`, `FixtureKey` y `FixtureValue` se consumen desde:
+
+```text
+com.fernandez.basketball:basketball-event-contracts:1.0.2
+```
+
+Este repositorio ya no mantiene copias locales de esos schemas.

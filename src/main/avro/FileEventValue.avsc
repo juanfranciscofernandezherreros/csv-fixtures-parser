@@ -1,1 +1,0 @@
-{"type":"record","name":"FileEventValue","namespace":"com.example.csvwatcher.watcher","fields":[{"name":"fileType","type":"string"},{"name":"filePath","type":"string"}]}

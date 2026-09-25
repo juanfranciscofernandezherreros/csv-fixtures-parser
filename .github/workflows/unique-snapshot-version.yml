@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  packages: read
 jobs:
   nonprod-version:
     runs-on: ubuntu-latest
@@ -16,13 +17,18 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+          server-id: github
       - name: Resolve immutable build version
         run: |
           set -euo pipefail
           short_sha="${GITHUB_SHA::8}"
           build_version="$(mvn -q -DforceStdout -Dsha1="-${short_sha}" help:evaluate -Dexpression=project.version)"
           echo "Build version: ${build_version}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Verify non-production build
         run: |
           short_sha="${GITHUB_SHA::8}"
           mvn -B -Dsha1="-${short_sha}" test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

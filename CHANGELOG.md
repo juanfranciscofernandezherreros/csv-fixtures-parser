@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.7 - 2026-09-25
+
+- [patch] KAN-78 sustituye los schemas locales FileEvent/Fixture por `basketball-event-contracts:1.0.2`.
+- [patch] Elimina generación Avro local y configura CI con lectura autenticada de GitHub Packages.
+- [patch] Mantiene los namespaces y tipos Java existentes sin cambios funcionales de dominio.
+
+
 ## 2.0.6 - 2026-09-25
 
 - [patch] KAN-68 valida rutas CSV contra `CSV_ALLOWED_ROOT` antes de abrir ficheros.
