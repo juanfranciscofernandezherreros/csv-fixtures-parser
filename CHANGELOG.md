@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1 - 2026-09-25
+
+- [patch] Exige confirmar rama y nivel SemVer antes de cualquier cambio.
+- [patch] Mantiene el versionado Maven CI-friendly.
+
 ## 2.0.0 - 2026-09-24
 - Consolida como contrato MAJOR la arquitectura parser Kafka sin PostgreSQL.
 - Mantiene la publicación Avro en `fixtures.parsed` y documenta el gobierno común del repositorio.
