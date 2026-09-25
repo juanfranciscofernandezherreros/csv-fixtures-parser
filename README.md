@@ -1,4 +1,4 @@
-Current version: **2.0.1**
+Current version: **2.0.2**
 
 # csv-fixtures-parser
 
