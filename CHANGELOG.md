@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3 - 2026-09-25
+
+- [patch] Añade eliminación automática de la rama origen después de mergear una Pull Request en `main`.
+
 ## 2.0.1 - 2026-09-25
 
 - [patch] Exige confirmar rama y nivel SemVer antes de cualquier cambio.
