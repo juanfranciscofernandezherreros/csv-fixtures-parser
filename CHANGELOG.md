@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.6 - 2026-09-25
+
+- [patch] KAN-68 valida rutas CSV contra `CSV_ALLOWED_ROOT` antes de abrir ficheros.
+- [patch] Rechaza rutas relativas, ficheros fuera de la raíz permitida, escapes mediante symlink, ficheros inexistentes/no legibles y extensiones no CSV.
+- [patch] Añade pruebas automatizadas de seguridad de rutas.
+
 ## 2.0.5 - 2026-09-25
 
 - [patch] Refuerza AGENTS.md con lectura obligatoria por tarea, autonomía y prohibición absoluta de escrituras directas en main.
