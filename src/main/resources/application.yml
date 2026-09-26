@@ -21,3 +21,7 @@ app:
     topics:
       file-ready: ${KAFKA_FILE_READY_TOPIC:file.ready.fixtures}
       parsed-fixtures: ${KAFKA_PARSED_FIXTURES_TOPIC:fixtures.parsed}
+      dlt: ${KAFKA_FIXTURES_PARSER_DLT_TOPIC:file.ready.fixtures.DLT}
+    error:
+      max-attempts: ${KAFKA_RETRY_MAX_ATTEMPTS:3}
+      backoff-ms: ${KAFKA_RETRY_BACKOFF_MS:1000}
