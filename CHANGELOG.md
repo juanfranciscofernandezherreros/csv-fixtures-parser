@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.1 - 2026-09-26
+
+- [patch] KAN-104 captura errores de deserialización Avro mediante `ErrorHandlingDeserializer`.
+- [patch] Permite publicar en DLT objetos Avro y bytes crudos con `DelegatingByTypeSerializer`.
+- [patch] Deja que Kafka elija la partición DLT y hace visible cualquier fallo de publicación en la DLT.
+- [patch] Añade cobertura de deserialización fallida → DLT conservando los bytes originales.
+
+
 ## 2.1.0 - 2026-09-26
 
 - [minor] KAN-104 aplica la estrategia común de errores Kafka de KAN-18.
