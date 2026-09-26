@@ -1,4 +1,4 @@
-![version](https://img.shields.io/badge/version-2.1.0-blue)
+![version](https://img.shields.io/badge/version-2.1.1-blue)
 # csv-fixtures-parser
 
 ```text
@@ -51,3 +51,14 @@ KAN-104 aplica la política común de KAN-18 al consumidor de `file.ready.fixtur
 - DLT configurable con `KAFKA_FIXTURES_PARSER_DLT_TOPIC`.
 
 Spring Kafka añade a la publicación DLT los headers de excepción y contexto del registro original.
+
+
+### Deserialización y DLT
+
+Los deserializadores Avro están envueltos con `ErrorHandlingDeserializer`. Un payload corrupto o incompatible entra así en el flujo normal de recuperación de Spring Kafka.
+
+La DLT `file.ready.fixtures.DLT`:
+- acepta tanto objetos Avro como `byte[]` originales;
+- conserva los headers de diagnóstico;
+- deja que Kafka seleccione una partición válida;
+- propaga cualquier fallo al publicar en la DLT para evitar pérdida silenciosa.
