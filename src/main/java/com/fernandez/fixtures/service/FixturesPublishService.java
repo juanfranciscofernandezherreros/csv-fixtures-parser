@@ -11,6 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class FixturesPublishService {
@@ -36,8 +37,12 @@ public class FixturesPublishService {
     public void publish(String filePath) {
         try {
             Path csvPath = pathValidator.validate(filePath);
-            parser.parseInChunks(csvPath, CHUNK_SIZE,
-                    rows -> rows.forEach(row -> kafka.send(topic, mapper.key(row), mapper.value(row)).join()));
+            parser.parseInChunks(csvPath, CHUNK_SIZE, rows -> {
+                CompletableFuture<?>[] sends = rows.stream()
+                        .map(row -> kafka.send(topic, mapper.key(row), mapper.value(row)))
+                        .toArray(CompletableFuture[]::new);
+                CompletableFuture.allOf(sends).join();
+            });
         } catch (Exception exception) {
             if (containsKafkaFailure(exception)) {
                 if (exception instanceof RuntimeException runtimeException) {

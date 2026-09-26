@@ -1,4 +1,4 @@
-![version](https://img.shields.io/badge/version-2.1.1-blue)
+![version](https://img.shields.io/badge/version-2.2.0-blue)
 # csv-fixtures-parser
 
 ```text
@@ -28,6 +28,10 @@ Configuración:
 CSV_ALLOWED_ROOT=/data/csv
 ```
 
+
+## Publicación Kafka por chunks
+
+KAN-74 elimina la espera `send(...).join()` por fixture. Cada chunk de hasta 500 registros se envía de forma asíncrona y se espera una única barrera `CompletableFuture.allOf(...)` antes de continuar. La key de negocio generada por el mapper no cambia. Si falla cualquier publicación, el procesamiento falla y se conserva la estrategia retry/DLT.
 
 ## Contratos Avro compartidos
 
