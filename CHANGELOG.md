@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.0 - 2026-09-26
+
+- [minor] KAN-74 sustituye el envío Kafka secuencial por publicación asíncrona controlada por chunk.
+- [minor] Espera una sola confirmación agregada mediante `CompletableFuture.allOf(...)`.
+- [minor] Conserva keys, particionamiento y propagación de fallos.
+- [minor] Añade tests de ausencia de bloqueo secuencial y error de ACK.
+
+
 ## 2.1.1 - 2026-09-26
 
 - [patch] KAN-104 captura errores de deserialización Avro mediante `ErrorHandlingDeserializer`.
