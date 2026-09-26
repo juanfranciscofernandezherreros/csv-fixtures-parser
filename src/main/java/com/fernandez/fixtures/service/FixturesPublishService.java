@@ -2,6 +2,7 @@ package com.fernandez.fixtures.service;
 
 import com.fernandez.fixtures.avro.FixtureKey;
 import com.fernandez.fixtures.avro.FixtureValue;
+import com.fernandez.fixtures.error.NonRetryableCsvException;
 import com.fernandez.fixtures.mapper.FixtureMessageMapper;
 import com.fernandez.fixtures.parser.FixturesCsvParser;
 import com.fernandez.fixtures.validation.SafeCsvPathValidator;
@@ -38,7 +39,25 @@ public class FixturesPublishService {
             parser.parseInChunks(csvPath, CHUNK_SIZE,
                     rows -> rows.forEach(row -> kafka.send(topic, mapper.key(row), mapper.value(row)).join()));
         } catch (Exception exception) {
-            throw new IllegalStateException("Unable to parse FIXTURES CSV: " + filePath, exception);
+            if (containsKafkaFailure(exception)) {
+                if (exception instanceof RuntimeException runtimeException) {
+                    throw runtimeException;
+                }
+                throw new RuntimeException(exception);
+            }
+            throw new NonRetryableCsvException("Unable to parse FIXTURES CSV: " + filePath, exception);
         }
+    }
+
+    private boolean containsKafkaFailure(Throwable error) {
+        Throwable current = error;
+        while (current != null) {
+            if (current instanceof org.springframework.kafka.KafkaException
+                    || current instanceof org.apache.kafka.common.KafkaException) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
     }
 }
